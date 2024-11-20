@@ -29,7 +29,7 @@ public class CustomerController {
         authHeader = authHeader.replace("Bearer ", "");
         if(jwtUtil.validateToken(authHeader, "")) {
             String email = jwtUtil.extractUsername(authHeader);
-            return ResponseEntity.ok(customerService.getCustomerByEmail(email).toString());
+            return ResponseEntity.ok(customerService.getCustomer(email));
         }
         throw new InvalidAuthTokenException("Invalid token");
     }
