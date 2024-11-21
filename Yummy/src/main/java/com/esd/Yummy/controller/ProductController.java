@@ -1,9 +1,15 @@
 package com.esd.Yummy.controller;
 
+import com.esd.Yummy.dto.ProductRequest;
+import com.esd.Yummy.dto.ProductResponse;
+import com.esd.Yummy.entity.Product;
 import com.esd.Yummy.service.CustomerService;
+import com.esd.Yummy.service.ProductService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
@@ -13,27 +19,31 @@ public class ProductController {
     private final ProductService productService;
 
     @PostMapping
-    public Product createProduct(@RequestBody Product product) {
-        return productService.saveProduct(product);
+    public ResponseEntity<String> createProduct(@RequestBody ProductRequest request) {
+         productService.saveProduct(request);
+         return ResponseEntity.ok("Product created");
     }
 
     @GetMapping
-    public List<Product> getAllProducts() {
-        return productService.getAllProducts();
+    public ResponseEntity<List<ProductResponse>> getAllProducts()
+    {
+        return ResponseEntity.ok(productService.getAllProducts());
     }
 
     @GetMapping("/{id}")
-    public Product getProductById(@PathVariable Long id) {
-        return productService.getProductById(id);
+    public ResponseEntity<ProductResponse> getProductById(@PathVariable Long id) {
+        return ResponseEntity.ok(productService.getProduct(id));
     }
 
     @DeleteMapping("/{id}")
-    public void deleteProduct(@PathVariable Long id) {
+    public String deleteProduct(@PathVariable Long id) {
         productService.deleteProduct(id);
+        return "Product deleted";
     }
 
     @GetMapping("/top-2")
-    public List<Product> getProductsByPriceRange() {
+    public List<ProductResponse> getProductsByPriceRange() {
+
         return productService.getTop2Products();
     }
 }
