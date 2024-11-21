@@ -14,12 +14,12 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(CustomerNotFoundException.class)
-    public ResponseEntity<String> CustomerNotFoundExceptionHandler(CustomerNotFoundException ex) {
+    public ResponseEntity<String> customerNotFoundExceptionHandler(CustomerNotFoundException ex) {
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler(LoginFailedException.class)
-    public ResponseEntity<String> LoginFailedExceptionHandler(LoginFailedException ex) {
+    public ResponseEntity<String> loginFailedExceptionHandler(LoginFailedException ex) {
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
     }
 
